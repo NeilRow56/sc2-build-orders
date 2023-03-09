@@ -9,7 +9,7 @@ async function Navbar() {
 
   let Links = [
     { name: "Home", link: "/" },
-    { name: "Admin", link: "/" },
+    { name: "Builds", link: "/builds" },
     { name: "Dashboard", link: "/dashboard" },
     { name: "About", link: "/" },
   ];

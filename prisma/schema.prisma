@@ -43,9 +43,7 @@ model User {
   emailVerified DateTime?
   accounts      Account[]
   sessions      Session[]
-  builds        Build[]
-
-  
+  builds        Build[] 
   
 }
 
@@ -59,6 +57,8 @@ model VerificationToken {
 
 model Build {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   matchUp String?
   content String
   user   User   @relation(fields: [userId], references: [id])

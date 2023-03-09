@@ -34,7 +34,8 @@ export default function CreateBuild() {
 
   const submitBuild = async (e) => {
     e.preventDefault();
-    toastBuildID = toast.loading("Creating your post", { id: toastBuildID });
+    toastBuildID = toast.loading("Creating your build", { id: toastBuildID });
+    toast.dismiss(toastBuildID);
     setIsDisabled(true);
     mutate({ matchUp, content });
   };
