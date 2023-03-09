@@ -10,16 +10,21 @@ export default function CreateBuild() {
   const [matchUp, setMatchUp] = useState("ZvT");
   const [isDisabled, setIsDisabled] = useState(false);
 
+  let toastBuildID;
+
   //Create a build
   const { mutate } = useMutation(
     async ({ matchUp, content }) =>
       await axios.post("/api/builds/addBuild", { matchUp, content }),
     {
       onError: (error) => {
-        console.lor(error);
+        if (error instanceof AxiosError) {
+          toast.error(error?.response?.data.message, { id: toastBuildID });
+        }
+        setIsDisabled(false);
       },
       onSuccess: (data) => {
-        console.log(data);
+        toast.success("Build has been completed 🔥", { id: toastBuildID });
         setContent("");
         setMatchUp("ZvT");
         setIsDisabled(false);
@@ -29,6 +34,7 @@ export default function CreateBuild() {
 
   const submitBuild = async (e) => {
     e.preventDefault();
+    toastBuildID = toast.loading("Creating your post", { id: toastBuildID });
     setIsDisabled(true);
     mutate({ matchUp, content });
   };

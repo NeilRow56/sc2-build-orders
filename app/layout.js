@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
         <QueryWrapper>
           <Provider>
             <Navbar />
+
             <main>{children}</main>
             <Footer />
           </Provider>
