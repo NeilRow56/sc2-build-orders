@@ -1,5 +1,13 @@
-const Dashboard = () => {
-  return <div>Dashboard</div>;
-};
+"use client";
 
-export default Dashboard;
+import AddBuild from "../../components/AddBuild";
+
+import React from "react";
+
+export default function BuildPage() {
+  return (
+    <>
+      <AddBuild />
+    </>
+  );
+}

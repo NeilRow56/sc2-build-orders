@@ -13,10 +13,10 @@ export default function Logged({ image }) {
       >
         Sign Out
       </button>
-      <Link href={"/dashboard"}>
+      <Link href="/dashboard">
         <Image
-          width={44}
-          height={44}
+          width="44"
+          height="44"
           className="w-10 rounded-full"
           src={image}
           alt=""

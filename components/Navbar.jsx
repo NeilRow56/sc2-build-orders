@@ -9,15 +9,15 @@ async function Navbar() {
 
   let Links = [
     { name: "Home", link: "/" },
-    { name: "Admin", link: "/admin" },
+    { name: "Admin", link: "/" },
     { name: "Dashboard", link: "/dashboard" },
-    { name: "About", link: "/about" },
+    { name: "About", link: "/" },
   ];
   return (
     <div className="md:px24 flex h-12 w-full items-center justify-between bg-teal-700 px-6  text-white lg:px-72">
       <div className="">
         <h1 className="text-xl font-bold text-orange-400 md:text-2xl lg:text-3xl">
-          Logo Name
+          Threadz
         </h1>
       </div>
       <ul className="flex items-center space-x-6 md:space-y-0">
