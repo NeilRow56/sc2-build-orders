@@ -1,9 +1,9 @@
-import MyBuilds from "../../components/MyBuilds";
+import Builds from "@/components/Builds";
 
-export default function Builds() {
+export default function BuildsPage() {
   return (
     <>
-      <MyBuilds />
+      <Builds />
     </>
   );
 }

@@ -44,6 +44,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   builds        Build[] 
+  comments      Comment[]
   
 }
 
@@ -56,12 +57,22 @@ model VerificationToken {
 }
 
 model Build {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   matchUp String?
   content String
   user   User   @relation(fields: [userId], references: [id])
   userId String @db.ObjectId
+  comments      Comment[]
 }
 
+model Comment {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  message     String
+  buildId    String  @db.ObjectId
+  userId    String  @db.ObjectId
+  createdAt DateTime @default(now())
+  build      Build     @relation(fields: [buildId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
+}

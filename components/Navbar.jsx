@@ -11,7 +11,7 @@ async function Navbar() {
     { name: "Home", link: "/" },
     { name: "Builds", link: "/builds" },
     { name: "Dashboard", link: "/dashboard" },
-    { name: "About", link: "/" },
+    { name: "Input Form", link: "/inputForm" },
   ];
   return (
     <div className="md:px24 flex h-12 w-full items-center justify-between bg-teal-700 px-6  text-white lg:px-72">

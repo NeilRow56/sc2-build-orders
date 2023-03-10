@@ -1,37 +1,31 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import EditBuild from "./EditBuild";
 
-import BuildCard from "./BuildCard";
-
-//Fetch all builds
-
-const fetchAllBuilds = async () => {
-  const response = await axios.get("/api/builds/getBuilds");
-
+const fetchAuthBuilds = async () => {
+  const response = await axios.get("/api/builds/authBuilds");
   return response.data;
 };
 
 export default function MyBuilds() {
-  const { data, error, isLoading } = useQuery({
-    queryFn: fetchAllBuilds,
-    queryKey: ["builds"],
+  const { data, isLoading } = useQuery({
+    queryFn: fetchAuthBuilds,
+    queryKey: ["auth-builds"],
   });
-  if (error) return error;
   if (isLoading) return <h1>Builds are loading...</h1>;
 
   return (
-    <div className="mx-auto max-w-[1000px] text-center">
-      <h1 className="pt-4 text-4xl font-bold text-teal-800">My Builds</h1>
-      
-      {data?.map((build) => (
-        <BuildCard
+    <div>
+      {data?.builds?.map((build) => (
+        <EditBuild
           id={build.id}
           key={build.id}
-          avatar={build.user.image}
-          name={build.user.name}
+          avatar={data.image}
+          name={data.name}
           content={build.content}
           matchUp={build.matchUp}
+          comments={build.comments}
         />
       ))}
     </div>

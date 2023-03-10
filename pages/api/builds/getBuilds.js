@@ -7,6 +7,7 @@ export default async function handler(req, res) {
       const data = await prisma.build.findMany({
         include: {
           user: true,
+          comments: true,
         },
         orderBy: {
           createdAt: "desc",
