@@ -9,7 +9,7 @@ export default function CreateBuild() {
   const [content, setContent] = useState("");
   const [matchUp, setMatchUp] = useState("ZvT");
   const [isDisabled, setIsDisabled] = useState(false);
-
+  const queryClient = useQueryClient();
   let toastBuildID;
 
   //Create a build
@@ -25,6 +25,7 @@ export default function CreateBuild() {
       },
       onSuccess: (data) => {
         toast.success("Build has been completed 🔥", { id: toastBuildID });
+        queryClient.invalidateQueries(["builds"]);
         setContent("");
         setMatchUp("ZvT");
         setIsDisabled(false);
@@ -34,9 +35,8 @@ export default function CreateBuild() {
 
   const submitBuild = async (e) => {
     e.preventDefault();
-    toastBuildID = toast.loading("Creating your build", { id: toastBuildID });
-    toast.dismiss(toastBuildID);
-    setIsDisabled(true);
+    toastBuildID = toast.success("Creating your build", { id: toastBuildID });
+
     mutate({ matchUp, content });
   };
 

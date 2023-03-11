@@ -22,7 +22,7 @@ export default function Builds() {
 
   return (
     <div className="mx-auto max-w-[1000px] text-center">
-      <h1 className="pt-4 text-4xl font-bold text-teal-800">My Builds</h1>
+      <h1 className="pt-4 text-4xl font-bold text-teal-800">All Builds</h1>
 
       {data?.map((build) => (
         <BuildCard

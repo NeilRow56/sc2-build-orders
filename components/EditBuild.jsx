@@ -1,6 +1,10 @@
 "use client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import Image from "next/image";
+import ToggleDelete from "./ToggleDelete";
 import { useState } from "react";
+import axios from "axios";
 
 export default function EditBuild({
   avatar,
@@ -10,6 +14,39 @@ export default function EditBuild({
   comments,
   id,
 }) {
+  //Toggle
+  const [toggle, setToggle] = useState(false);
+
+  //Delete Build
+  const queryClient = useQueryClient();
+  let deleteToastID;
+
+  const { mutate } = useMutation(
+    async (id) => await axios.delete("/api/builds/deleteBuild", { data: id }),
+    {
+      onError: (error) => {
+        console.log(error);
+        toast.error("Error deleting that build", { id: deleteToastID });
+      },
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("auth-builds");
+        toast.success("Build has been deleted.", {
+          duration: 3000,
+          id: deleteToastID,
+        });
+      },
+    }
+  );
+
+  const deleteBuild = () => {
+    deleteToastID = toast.success("Deleting your build.", {
+      id: deleteToastID,
+    });
+
+    mutate(id);
+  };
+
   return (
     <>
       <div className="my-8 rounded-lg bg-white p-8">
@@ -34,9 +71,19 @@ export default function EditBuild({
           <p className=" text-sm font-bold text-gray-700">
             {comments?.length} Comments
           </p>
-          <button className="text-sm font-bold text-red-500">Delete</button>
+          <button
+            onClick={() => {
+              setToggle(true);
+            }}
+            className="text-sm font-bold text-red-500"
+          >
+            Delete
+          </button>
         </div>
       </div>
+      {toggle && (
+        <ToggleDelete deleteBuild={deleteBuild} setToggle={setToggle} />
+      )}
     </>
   );
 }
